@@ -7,19 +7,14 @@
        http://www.springframework.org/schema/context/spring-context.xsd"
 	default-autowire="byName" default-lazy-init="false">
 
-
 	<bean id="mqServer" class="cn.songm.songmq.server.BrokerServer" />
 
 	<bean id="mqContext" class="cn.songm.songmq.server.MQContext">
 		<property name="mqServers">
 			<list>
 				<ref bean="mqServer" />
-				<ref bean="tcpIMServer" />
-				<ref bean="wsIMServer" />
-				<ref bean="httpServer" />
 			</list>
 		</property>
 	</bean>
 
-	<import resource="songmim-application.xml" />
 </beans>

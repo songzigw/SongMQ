@@ -33,14 +33,12 @@ public class MQueueManager {
     private static AtomicBoolean flag = new AtomicBoolean(false);
 
     private final Map<Topic, MessageQueue> mqMap;
-    {
-        mqMap = Collections.synchronizedMap(new HashMap<Topic, MessageQueue>());
-    }
 
     /** 单例消息队列管理器对象 */
     private static MQueueManager manager;
 
     private MQueueManager() {
+        mqMap = Collections.synchronizedMap(new HashMap<Topic, MessageQueue>());
     }
 
     public static MQueueManager getInstance() {
@@ -70,4 +68,5 @@ public class MQueueManager {
         }
         return mqMap.put(topic, mq);
     }
+
 }
