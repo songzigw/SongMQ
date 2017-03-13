@@ -66,7 +66,8 @@ public class MQueueManager {
         default:
             throw new IllegalArgumentException("topic.getModel()");
         }
-        return mqMap.put(topic, mq);
+        mqMap.put(topic, mq);
+        return mq;
     }
 
 }

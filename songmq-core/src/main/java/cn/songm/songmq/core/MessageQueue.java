@@ -22,7 +22,10 @@ public abstract class MessageQueue {
     }
 
     public boolean pushMessage(byte[] payload) {
-        return queue.offer(payload);
+        MessageEvent event = new MessageEvent(topic, payload);
+        MessageEventManager.getInstance().trigger(event);
+        //return queue.offer(payload);
+        return true;
     }
 
     public boolean pushMessage(List<byte[]> payloads) {
