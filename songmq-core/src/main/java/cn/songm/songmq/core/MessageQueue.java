@@ -3,6 +3,8 @@ package cn.songm.songmq.core;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import cn.songm.songmq.core.president.MQMessage;
+
 /**
  * 消息队列
  * 
@@ -14,29 +16,29 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public abstract class MessageQueue {
 
     private Topic topic;
-    private ConcurrentLinkedQueue<byte[]> queue;
+    private ConcurrentLinkedQueue<MQMessage> queue;
 
     public MessageQueue(Topic topic) {
         this.topic = topic;
-        queue = new ConcurrentLinkedQueue<byte[]>();
+        queue = new ConcurrentLinkedQueue<MQMessage>();
     }
 
-    public boolean pushMessage(byte[] payload) {
-        MessageEvent event = new MessageEvent(topic, payload);
-        MessageEventManager.getInstance().trigger(event);
-        //return queue.offer(payload);
-        return true;
-    }
-
-    public boolean pushMessage(List<byte[]> payloads) {
-        return queue.addAll(payloads);
-    }
-
-    public byte[] getMessage() {
+    public MQMessage getMessage() {
         return queue.poll();
     }
 
     public Topic getTopic() {
         return topic;
+    }
+
+    public boolean pushMessage(MQMessage payload) {
+        // return queue.offer(payload);
+        MessageEvent event = new MessageEvent(topic, payload);
+        MessageEventManager.getInstance().trigger(event);
+        return true;
+    }
+
+    public boolean pushMessage(List<MQMessage> payloads) {
+        return queue.addAll(payloads);
     }
 }

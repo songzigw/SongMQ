@@ -14,7 +14,7 @@ public class MessageEvent extends EventObject {
 
     private Topic topic;
 
-    public MessageEvent(Topic topic, byte[] payload) {
+    public MessageEvent(Topic topic, Object payload) {
         super(payload);
         this.topic = topic;
     }
@@ -22,8 +22,8 @@ public class MessageEvent extends EventObject {
     public Topic getTopic() {
         return topic;
     }
-    
-    public byte[] getPayload() {
-        return (byte[]) source;
+
+    public Object getPayload() {
+        return this.source;
     }
 }

@@ -57,8 +57,8 @@ public class MQueueManager {
         }
         MessageQueue mq = null;
         switch (topic.getModel()) {
-        case BROADCAST:
-            mq = new BroadcastMessageQueue(topic);
+        case PUB_SUB:
+            mq = new PubsubMessageQueue(topic);
             break;
         case POINT_2_P:
             mq = new Point2pMessageQueue(topic);

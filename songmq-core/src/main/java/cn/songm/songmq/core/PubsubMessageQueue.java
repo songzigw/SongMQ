@@ -16,16 +16,16 @@
 package cn.songm.songmq.core;
 
 /**
- * 广播消息队列
+ * 发布/订阅消息队列
  * 
  * @author zhangsong
  * @since 0.1, 2017-02-18
  * @version 0.1
  *
  */
-public class BroadcastMessageQueue extends MessageQueue {
+public class PubsubMessageQueue extends MessageQueue {
 
-    public BroadcastMessageQueue(Topic topic) {
+    public PubsubMessageQueue(Topic topic) {
         super(topic);
     }
 

@@ -25,8 +25,8 @@ package cn.songm.songmq.core;
  */
 public enum MQueueModel {
 
-    /** 广播消息 */
-    BROADCAST(0),
+    /** 发布/订阅消息 */
+    PUB_SUB(0),
     /** 点对点消息 */
     POINT_2_P(1);
 

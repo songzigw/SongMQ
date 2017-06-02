@@ -84,7 +84,7 @@ public class MessageEventManager {
                 set.iterator().next().onMessage(event);
             }
             break;
-        case BROADCAST:
+        case PUB_SUB:
             for (MessageListener ler : set) {
                 ler.onMessage(event);
             }
