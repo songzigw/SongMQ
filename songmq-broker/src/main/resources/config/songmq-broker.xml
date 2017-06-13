@@ -9,12 +9,4 @@
 
 	<bean id="mqServer" class="cn.songm.songmq.server.BrokerServer" />
 
-	<bean id="mqContext" class="cn.songm.songmq.server.MQContext">
-		<property name="mqServers">
-			<list>
-				<ref bean="mqServer" />
-			</list>
-		</property>
-	</bean>
-
 </beans>

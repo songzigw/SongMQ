@@ -15,9 +15,6 @@
  */
 package cn.songm.songmq.model.message;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 /**
  * 队列消息
  * 
@@ -56,13 +53,6 @@ public class QMessage extends BaseMessage  {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public String toString() {
-        ReflectionToStringBuilder
-                .setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
-        return ReflectionToStringBuilder.toStringExclude(this,
-                new String[] { "body" });
     }
 
 }

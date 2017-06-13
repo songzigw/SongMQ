@@ -40,12 +40,12 @@ public abstract class AbstractMsgHandler
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-        LOG.debug("[HandlerRemoved: {}]", ctx.channel());
+        LOG.debug("HandlerRemoved: {}", ctx.channel());
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
-        LOG.error("[Channel: {}, Exception: {}]", ctx.channel(), cause);
+        LOG.error("Channel: {}, Exception: {}", ctx.channel(), cause);
     }
 }
