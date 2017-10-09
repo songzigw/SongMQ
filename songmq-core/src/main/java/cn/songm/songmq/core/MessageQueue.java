@@ -32,13 +32,21 @@ public abstract class MessageQueue {
     }
 
     public boolean pushMessage(MQMessage payload) {
-        // return queue.offer(payload);
-        MessageEvent event = new MessageEvent(topic, payload);
-        MessageEventManager.getInstance().trigger(event);
-        return true;
+        boolean f = queue.offer(payload);
+        if (f) {
+            MQueueTask task = new MQueueTask(this);
+            MessageEventManager.getInstance().getExecutor().submit(task);
+        }
+        return f;
     }
 
     public boolean pushMessage(List<MQMessage> payloads) {
         return queue.addAll(payloads);
+    }
+    
+    public void triggerMessage() {
+        MQMessage msg = queue.poll();
+        MessageEvent event = new MessageEvent(topic, msg);
+        MessageEventManager.getInstance().trigger(event);
     }
 }

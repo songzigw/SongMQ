@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -16,12 +20,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MessageEventManager {
 
     private static AtomicBoolean flag = new AtomicBoolean(false);
+    // 核心线程数
+    public static final int CORE_POOL_SIZE = 10;
+    // 最大线程数
+    public static final int MAX_POOL_SIZE = 30;
 
     private final Map<Topic, Set<MessageListener>> listeners;
+    private final ExecutorService executor;
 
     private MessageEventManager() {
         listeners = Collections
                 .synchronizedMap(new HashMap<Topic, Set<MessageListener>>());
+        executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_POOL_SIZE, 60L,
+                TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
     }
 
     private static MessageEventManager manager;
@@ -92,5 +103,9 @@ public class MessageEventManager {
         default:
             break;
         }
+    }
+
+    public ExecutorService getExecutor() {
+        return executor;
     }
 }

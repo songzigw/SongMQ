@@ -25,12 +25,10 @@ package cn.songm.songmq.core;
  */
 public class MQueueTask implements Runnable {
 
-    private Topic topic;
-    private byte[] payload;
+    private MessageQueue queue;
 
-    public MQueueTask(Topic topic, byte[] payload) {
-        this.topic = topic;
-        this.payload = payload;
+    public MQueueTask(MessageQueue queue) {
+        this.queue = queue;
     }
 
     @Override
@@ -39,7 +37,6 @@ public class MQueueTask implements Runnable {
     }
 
     private void doWork() {
-        MessageEvent event = new MessageEvent(topic, payload);
-        MessageEventManager.getInstance().trigger(event);
+        queue.triggerMessage();
     }
 }

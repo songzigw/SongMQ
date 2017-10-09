@@ -3,6 +3,7 @@ package cn.songm.songmq.core;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -18,10 +19,10 @@ public class CallbackManager {
         flag = new AtomicBoolean(false);
     }
 
-    private final Map<String, CallbackInvoker<Object>> callbackMap;
+    private final Map<String, CallbackInvoker> callbackMap;
     {
         callbackMap = Collections.synchronizedMap(
-                new HashMap<String, CallbackInvoker<Object>>());
+                new HashMap<String, CallbackInvoker>());
     }
 
     private static CallbackManager instance;
@@ -39,22 +40,30 @@ public class CallbackManager {
         return instance;
     }
     
-    public void put(String requestId, CallbackInvoker<Object> invoker) {
-        callbackMap.put(requestId, invoker);
+    public void put(CallbackInvoker invoker) {
+        callbackMap.put(invoker.getEventId(), invoker);
     }
     
-    public void remove(String requestId) {
-        callbackMap.remove(requestId);
+    public void remove(String eventId) {
+        callbackMap.remove(eventId);
     }
     
-    public CallbackInvoker<Object> get(String requestId) {
-        return callbackMap.get(requestId);
+    public CallbackInvoker get(String eventId) {
+        return callbackMap.get(eventId);
     }
     
-    public void notify(String requestId, Object msgResult) {
-        CallbackInvoker<Object> inv = callbackMap.get(requestId);
+    public void notify(String eventId, Object result) {
+        CallbackInvoker inv = callbackMap.get(eventId);
         if (inv != null) {
-            inv.setMessageResult(msgResult);
+            inv.setResult(result);
         }
+    }
+    
+    public Object getResult(String eventId, long timeout, TimeUnit unit) {
+        CallbackInvoker inv = callbackMap.get(eventId);
+        if (inv == null) {
+            return null;
+        }
+        return inv.getResult(timeout, unit);
     }
 }

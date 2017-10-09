@@ -5,10 +5,9 @@ package cn.songm.songmq.core;
  * 
  * @author zhangsong
  *
- * @param <T>
  */
-public interface CallbackListener<T> {
+public interface CallbackListener {
 
-    void onCallBack(T t);
+    void onCallBack(Object t);
 
 }

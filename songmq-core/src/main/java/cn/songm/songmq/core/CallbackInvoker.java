@@ -6,31 +6,31 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class CallbackInvoker<T> {
+public class CallbackInvoker {
 
     private static final int COUNT = 1;
 
     private final CountDownLatch countDown;
-    private String requestId;
-    private T messageResult;
+    private String eventId;
+    private Object result;
     private Throwable reason;
-    private List<CallbackListener<T>> listeners;
+    private List<CallbackListener> listeners;
 
     {
         countDown = new CountDownLatch(COUNT);
         listeners = Collections
-                .synchronizedList(new ArrayList<CallbackListener<T>>());
+                .synchronizedList(new ArrayList<CallbackListener>());
     }
 
-    public CallbackInvoker(String requestId) {
-        this.requestId = requestId;
+    public CallbackInvoker(String eventId) {
+        this.eventId = eventId;
     }
 
     private void publish() {
-        for (CallbackListener<T> listener : listeners) {
-            listener.onCallBack(messageResult);
+        for (CallbackListener listener : listeners) {
+            listener.onCallBack(result);
         }
-        CallbackManager.getInstance().remove(requestId);
+        CallbackManager.getInstance().remove(eventId);
     }
 
     public void setReason(Throwable reason) {
@@ -39,31 +39,37 @@ public class CallbackInvoker<T> {
         countDown.countDown();
     }
 
-    public void setMessageResult(T messageResult) {
-        this.messageResult = messageResult;
+    public void setResult(Object result) {
+        this.result = result;
         publish();
         countDown.countDown();
     }
 
-    public Object getMessageResult(long timeout, TimeUnit unit) {
+    public Object getResult(long timeout, TimeUnit unit) {
+        boolean flag = false;
         try {
-            countDown.await(timeout, unit);
+            flag = countDown.await(timeout, unit);
         } catch (InterruptedException e) {
-            CallbackManager.getInstance().remove(requestId);
             throw new RuntimeException(e);
+        } finally {
+            CallbackManager.getInstance().remove(eventId);
         }
+        if (!flag) {
+            throw new RuntimeException();
+        }
+        
         if (reason != null) {
             throw new RuntimeException(reason);
         }
-        return messageResult;
+        return result;
     }
 
-    public void join(CallbackListener<T> listener) {
+    public void join(CallbackListener listener) {
         this.listeners.add(listener);
     }
 
-    public String getRequestId() {
-        return requestId;
+    public String getEventId() {
+        return eventId;
     }
 
 }
