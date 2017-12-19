@@ -21,9 +21,13 @@ public class CallbackInvoker {
         listeners = Collections
                 .synchronizedList(new ArrayList<CallbackListener>());
     }
-
+    
     public CallbackInvoker(String eventId) {
         this.eventId = eventId;
+    }
+    
+    public CallbackInvoker(Long eventId) {
+        this(eventId.toString());
     }
 
     private void publish() {
@@ -35,13 +39,13 @@ public class CallbackInvoker {
 
     public void setReason(Throwable reason) {
         this.reason = reason;
-        publish();
+        this.publish();
         countDown.countDown();
     }
 
     public void setResult(Object result) {
         this.result = result;
-        publish();
+        this.publish();
         countDown.countDown();
     }
 

@@ -6,9 +6,7 @@ import cn.songm.songmq.core.president.MQServer;
 
 public class MQContainer implements Container {
 
-    // private static final Logger LOG = LoggerFactory
-    // .getLogger(MQContainer.class);
-    private static final String CONFIG = "classpath:config/songmq-broker.xml";
+    private static final String CONFIG = "classpath:songmq-broker.xml";
 
     private MQContext context;
 
@@ -21,7 +19,7 @@ public class MQContainer implements Container {
     public void start() {
         Map<String, MQServer> beans = context.getBeansOfType(MQServer.class);
         for (MQServer ser : beans.values()) {
-            ser.start();
+            ser.startup();
         }
     }
 

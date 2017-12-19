@@ -3,7 +3,6 @@ package cn.songm.songmq.core;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -52,18 +51,14 @@ public class CallbackManager {
         return callbackMap.get(eventId);
     }
     
-    public void notify(String eventId, Object result) {
+    public void trigger(String eventId, Object result) {
         CallbackInvoker inv = callbackMap.get(eventId);
         if (inv != null) {
             inv.setResult(result);
         }
     }
     
-    public Object getResult(String eventId, long timeout, TimeUnit unit) {
-        CallbackInvoker inv = callbackMap.get(eventId);
-        if (inv == null) {
-            return null;
-        }
-        return inv.getResult(timeout, unit);
+    public void trigger(Long eventId, Object result) {
+        this.trigger(eventId.toString(), result);
     }
 }

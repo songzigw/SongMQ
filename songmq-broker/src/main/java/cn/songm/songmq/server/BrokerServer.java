@@ -47,7 +47,7 @@ public class BrokerServer extends AbstractMQServer {
     }
 
     @Override
-    public void start() {
+    public void startup() {
         new Thread(this, "SongMQBrokerTCP").start();
     }
 
@@ -60,9 +60,9 @@ public class BrokerServer extends AbstractMQServer {
 
     @Override
     public void run() {
-        LOG.info("SongMQ broker TCP start: {}:{}", serverIp, serverPort);
         try {
             ChannelFuture sync = bootstrap.bind().sync();
+            LOG.info("SongMQ broker TCP start: {}:{}", serverIp, serverPort);
             sync.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             this.shutdown();

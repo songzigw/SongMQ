@@ -3,7 +3,7 @@ package cn.songm.songmq.broker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.songm.songmq.core.president.AbstractMsgHandler;
+import cn.songm.songmq.core.president.AbstractMessageHandler;
 import cn.songm.songmq.core.president.MQProtocol;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -15,7 +15,7 @@ import io.netty.channel.ChannelHandlerContext;
  *
  */
 @ChannelHandler.Sharable
-public class MessageBrokerDispatcher extends AbstractMsgHandler {
+public class MessageBrokerDispatcher extends AbstractMessageHandler {
 
     private static final Logger LOG = LoggerFactory
             .getLogger(MessageBrokerDispatcher.class);

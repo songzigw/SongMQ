@@ -1,7 +1,7 @@
 package cn.songm.songmq.broker;
 
 import cn.songm.songmq.core.president.AbstractChInitializer;
-import cn.songm.songmq.core.president.AbstractMsgHandler;
+import cn.songm.songmq.core.president.AbstractMessageHandler;
 import io.netty.channel.socket.SocketChannel;
 
 /**
@@ -12,7 +12,7 @@ import io.netty.channel.socket.SocketChannel;
  */
 public class BrokerChInitializer extends AbstractChInitializer {
 
-    public BrokerChInitializer(AbstractMsgHandler msgHandler) {
+    public BrokerChInitializer(AbstractMessageHandler msgHandler) {
         super(msgHandler);
     }
 

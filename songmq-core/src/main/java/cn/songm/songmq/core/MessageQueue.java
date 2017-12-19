@@ -46,6 +46,7 @@ public abstract class MessageQueue {
     
     public void triggerMessage() {
         MQMessage msg = queue.poll();
+        if (msg == null) return;
         MessageEvent event = new MessageEvent(topic, msg);
         MessageEventManager.getInstance().trigger(event);
     }

@@ -4,8 +4,10 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.util.concurrent.EventExecutorGroup;
 
 /**
  * Broker 服务
@@ -14,16 +16,15 @@ import io.netty.channel.nio.NioEventLoopGroup;
  */
 public abstract class AbstractMQServer implements MQServer {
 
-    //private static final Logger LOG = LoggerFactory
-    //        .getLogger(AbstractMQServer.class);
-
     protected String serverIp;
     protected Integer serverPort;
 
-    protected SocketAddress serverIpAddr;
+    protected InetSocketAddress serverIpAddr;
     protected ServerBootstrap bootstrap;
     protected EventLoopGroup bossGroup;
     protected EventLoopGroup workerGroup;
+    protected ChannelFuture channelFuture;
+    protected EventExecutorGroup eExecutorGroup;
 
     public AbstractMQServer(String ip, int port) {
         this.serverIp = ip;

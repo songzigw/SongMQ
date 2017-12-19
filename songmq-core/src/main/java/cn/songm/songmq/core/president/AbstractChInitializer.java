@@ -32,11 +32,11 @@ public abstract class AbstractChInitializer
         extends ChannelInitializer<SocketChannel> {
 
     // 消息处理者
-    private AbstractMsgHandler handler;
+    private AbstractMessageHandler handler;
     // DefaultEventExecutorGroup
     private EventExecutorGroup eExeGroup;
 
-    public AbstractChInitializer(AbstractMsgHandler msgHandler) {
+    public AbstractChInitializer(AbstractMessageHandler msgHandler) {
         this.handler = msgHandler;
     }
 

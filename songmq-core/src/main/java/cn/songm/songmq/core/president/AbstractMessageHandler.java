@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
@@ -32,20 +31,9 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * 
  */
 @ChannelHandler.Sharable
-public abstract class AbstractMsgHandler
+public abstract class AbstractMessageHandler
         extends SimpleChannelInboundHandler<MQProtocol> {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(AbstractMsgHandler.class);
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Override
-    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-        LOG.debug("HandlerRemoved: {}", ctx.channel());
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-            throws Exception {
-        LOG.error("Channel: {}, Exception: {}", ctx.channel(), cause);
-    }
 }

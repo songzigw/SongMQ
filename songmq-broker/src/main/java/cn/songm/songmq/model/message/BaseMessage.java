@@ -15,8 +15,8 @@
  */
 package cn.songm.songmq.model.message;
 
-import cn.songm.common.utils.StringUtils;
 import cn.songm.songmq.core.president.MQMessage;
+import cn.songm.songmq.core.util.StringUtils;
 
 /**
  * 抽象消息类
