@@ -51,6 +51,11 @@ public class MQueueManager {
         return manager;
     }
 
+    /**
+     * 创建一个消息队列
+     * @param topic
+     * @return
+     */
     public MessageQueue createMQ(Topic topic) {
         if (mqMap.containsKey(topic)) {
             return mqMap.get(topic);
@@ -70,4 +75,29 @@ public class MQueueManager {
         return mq;
     }
 
+    /**
+     * 获取主题
+     * @param topicName
+     * @return
+     */
+    public Topic getTopic(String topicName) {
+	Topic t = new Topic();
+	t.setName(topicName);
+	if (mqMap.containsKey(t)) {
+            return mqMap.get(t).getTopic();
+        }
+	return null;
+    }
+    
+    /**
+     * 获取队列
+     * @param topicName
+     * @return
+     */
+    public MessageQueue getMQ(String topicName) {
+	Topic t = new Topic();
+	t.setName(topicName);
+        return mqMap.get(t);
+    }
+    
 }

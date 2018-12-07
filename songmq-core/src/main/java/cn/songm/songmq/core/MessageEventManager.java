@@ -57,7 +57,7 @@ public class MessageEventManager {
         // 创建消息队列
         MessageQueue mq = MQueueManager.getInstance().createMQ(topic);
         topic = mq.getTopic();
-        Set<MessageListener> set = listeners.get(mq.getTopic());
+        Set<MessageListener> set = listeners.get(topic);
         if (set == null) {
             set = new HashSet<MessageListener>();
             listeners.put(topic, set);
