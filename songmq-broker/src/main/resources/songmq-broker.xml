@@ -7,6 +7,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd"
 	default-autowire="byName" default-lazy-init="false">
 
-	<bean id="mqServer" class="cn.songm.songmq.server.BrokerServer" />
+	<context:property-placeholder location="classpath:songmq-broker.properties" />
+	<context:component-scan base-package="cn.songm.songmq" />
 
 </beans>
