@@ -6,13 +6,7 @@
 .DS_Store
 */.DS_Store
 
-.settings/
-*/.settings/
 
-.project
-*/.project
-.classpath
-*/.classpath
 
 logs.log*
 */*.log
