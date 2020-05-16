@@ -21,7 +21,7 @@
         <mysql.version>5.1.30</mysql.version>
         <jedis_version>2.6.2</jedis_version>
         <spring.redis.version>1.7.0.RELEASE</spring.redis.version>
-        <zookeeper.version>3.3.3</zookeeper.version>
+        <zookeeper.version>3.4.14</zookeeper.version>
         <dubbo.version>2.5.3</dubbo.version>
         <mybatis.spring.version>1.3.0</mybatis.spring.version>
         <mybatis.version>3.4.0</mybatis.version>
